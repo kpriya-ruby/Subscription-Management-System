@@ -1,4 +1,93 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../api";
+
 export default function Register() {
-  return <div className="auth-page"><div className="auth-card"><div className="brand auth-brand"><span className="brand-mark">B</span><span>brightloop</span></div><p className="eyebrow">GET STARTED</p><h1>Create your account</h1><p className="muted">Customer registration form starter.</p><form className="form-stack" onSubmit={e=>{e.preventDefault(); alert("Connect this form to the registration API.");}}><label>Full name<input required placeholder="Your name"/></label><label>Email address<input required type="email" placeholder="you@example.com"/></label><label>Password<input required type="password" minLength="8" placeholder="At least 8 characters"/></label><button className="primary-button full-button">Create account</button></form><p className="auth-footer">Already registered? <Link to="/login">Sign in</Link></p></div></div>;
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await api.post("/register", form);
+      alert(response.data.message || "Registration successful!");
+      navigate("/login");
+    } catch (err) {
+      setError(
+        err.response?.data?.error ||
+        "Registration failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="auth-page">
+      <div className="auth-card">
+        <h1>Create your account</h1>
+        <p>Create your Brightloop account.</p>
+
+        <form onSubmit={handleSubmit}>
+          <label>Full name</label>
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            required
+            placeholder="Your name"
+          />
+
+          <label>Email address</label>
+          <input
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            placeholder="you@example.com"
+          />
+
+          <label>Password</label>
+          <input
+            name="password"
+            type="password"
+            value={form.password}
+            onChange={handleChange}
+            required
+            minLength={9}
+            placeholder="At least 9 characters"
+          />
+
+          {error && <p style={{ color: "red" }}>{error}</p>}
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Creating account..." : "Create account"}
+          </button>
+        </form>
+
+        <p>
+          Already registered? <Link to="/login">Sign in</Link>
+        </p>
+      </div>
+    </div>
+  );
 }
