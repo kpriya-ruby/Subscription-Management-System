@@ -10,7 +10,6 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from routes.auth import auth_bp
-
 # Import the existing db object (do NOT create a second SQLAlchemy instance).
 # Importing the model classes also registers their tables with db,
 # which is what lets db.create_all() find them.
@@ -18,7 +17,9 @@ from models import db, User, Product, Plan, Subscription, Invoice, Payment  # no
 from routes.products import products_bp
 from routes.plans import plans_bp
 from routes.subscriptions import subscriptions_bp
-
+from routes.invoices import invoices_bp
+from routes.payments import payments_bp
+from routes.dashboard import dashboard_bp
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
@@ -68,6 +69,9 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(products_bp)
 app.register_blueprint(plans_bp)
 app.register_blueprint(subscriptions_bp)
+app.register_blueprint(invoices_bp)
+app.register_blueprint(payments_bp)
+app.register_blueprint(dashboard_bp)
 print(app.url_map)
 
 # Start the server
