@@ -1,0 +1,2 @@
+import PageHeader from "../../components/common/PageHeader";
+export default function Quotations(){return <><PageHeader title="Quotations" description="Prepare and track customer quotations."/><div className="panel"><h2>Quotation workspace</h2><p className="muted">Connect the quotation API to create, send and convert quotations into subscriptions.</p><button className="primary-button" onClick={()=>alert("Quotation creation will be connected to the backend.")}>Create quotation</button></div></>}
