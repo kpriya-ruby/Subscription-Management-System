@@ -1,0 +1,4 @@
+import { Link } from "react-router-dom";
+export default function Register() {
+  return <div className="auth-page"><div className="auth-card"><div className="brand auth-brand"><span className="brand-mark">B</span><span>brightloop</span></div><p className="eyebrow">GET STARTED</p><h1>Create your account</h1><p className="muted">Customer registration form starter.</p><form className="form-stack" onSubmit={e=>{e.preventDefault(); alert("Connect this form to the registration API.");}}><label>Full name<input required placeholder="Your name"/></label><label>Email address<input required type="email" placeholder="you@example.com"/></label><label>Password<input required type="password" minLength="8" placeholder="At least 8 characters"/></label><button className="primary-button full-button">Create account</button></form><p className="auth-footer">Already registered? <Link to="/login">Sign in</Link></p></div></div>;
+}

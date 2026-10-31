@@ -1,0 +1,3 @@
+import PageHeader from "../../components/common/PageHeader";
+import { plans } from "../../services/demoData";
+export default function BrowsePlans(){return <><PageHeader title="Explore plans" description="Choose a plan that works for you."/><div className="plans-grid">{plans.map(p=><article className="plan-card" key={p.id}><span className="eyebrow">SUBSCRIPTION</span><h2>{p.name}</h2><p className="muted">{p.description}</p><div className="plan-price">₹{p.price.toLocaleString("en-IN")}<span> / {p.cycle}</span></div><ul>{p.features.map(f=><li key={f}>{f}</li>)}</ul><button className="primary-button full-button" onClick={()=>alert("Demo only: connect POST /subscriptions to activate a plan.")}>Choose plan</button></article>)}</div></>}

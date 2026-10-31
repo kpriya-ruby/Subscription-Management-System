@@ -1,0 +1,3 @@
+import PageHeader from "../../components/common/PageHeader";
+import { stats } from "../../services/demoData";
+export default function StaffDashboard(){return <><PageHeader title="Staff overview" description="Your customer and billing operations at a glance."/><section className="stats-grid">{stats.slice(1).map(s=><article className="stat-card" key={s.label}><span>{s.label}</span><strong>{s.value}</strong><span className="stat-change green">{s.change}</span></article>)}</section><div className="panel"><h2>Today's work</h2><p className="muted">Customer follow-ups, quotations and invoice tasks will appear here.</p></div></>}
